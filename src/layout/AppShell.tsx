@@ -4,6 +4,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined, Set
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useSideMenuItems, moduleMenuGroups } from './menuConfig'
 import { useAuth } from '@my-oa/auth'
+import { ChatWidget } from '@my-oa/chat'
 import './AppShell.css'
 
 const { Header, Sider, Content } = Layout
@@ -128,6 +129,7 @@ export function AppShell() {
           <Outlet />
         </Content>
       </Layout>
+      <ChatWidget />
     </Layout>
   )
 }

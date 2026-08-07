@@ -7,6 +7,7 @@ import {
   AuditOutlined,
   ClockCircleOutlined,
   SettingOutlined,
+  MessageOutlined,
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { useAuth } from '@my-oa/auth'
@@ -56,6 +57,14 @@ export const moduleMenuGroups: {
     icon: <ClusterOutlined />,
     items: [
       { key: '/project', label: '项目列表', path: '/project', permission: 'project:view' },
+    ],
+  },
+  {
+    key: 'chat',
+    label: '聊天',
+    icon: <MessageOutlined />,
+    items: [
+      { key: '/chat', label: '消息列表', path: '/chat', permission: 'chat:view' },
     ],
   },
   {

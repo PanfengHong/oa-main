@@ -14,6 +14,7 @@ export default defineConfig({
       '@my-oa/meeting': resolve(__dirname, '../oa-meeting/src/index.ts'),
       '@my-oa/task': resolve(__dirname, '../oa-task/src/index.ts'),
       '@my-oa/project': resolve(__dirname, '../oa-project/src/index.ts'),
+      '@my-oa/chat': resolve(__dirname, '../oa-chat/src/index.ts'),
     },
   },
   server: {
