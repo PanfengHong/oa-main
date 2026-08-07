@@ -11,6 +11,7 @@ export default defineConfig({
       '@my-oa/auth': resolve(__dirname, '../oa-auth/src/index.ts'),
       '@my-oa/form': resolve(__dirname, '../oa-form/src/index.ts'),
       '@my-oa/flow': resolve(__dirname, '../oa-flow/src/index.ts'),
+      '@my-oa/designer': resolve(__dirname, '../oa-designer/src/index.ts'),
       '@my-oa/meeting': resolve(__dirname, '../oa-meeting/src/index.ts'),
       '@my-oa/task': resolve(__dirname, '../oa-task/src/index.ts'),
       '@my-oa/project': resolve(__dirname, '../oa-project/src/index.ts'),

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:deps && tsc -b && vite build",
-    "build:deps": "npm run build --prefix ../oa-auth && npm run build --prefix ../oa-form && npm run build --prefix ../oa-flow && npm run build --prefix ../oa-meeting && npm run build --prefix ../oa-task && npm run build --prefix ../oa-project && npm run build --prefix ../oa-chat",
+    "build:deps": "npm run build --prefix ../oa-auth && npm run build --prefix ../oa-form && npm run build --prefix ../oa-flow && npm run build --prefix ../oa-meeting && npm run build --prefix ../oa-task && npm run build --prefix ../oa-project && npm run build --prefix ../oa-chat && npm run build --prefix ../oa-designer",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -15,6 +15,7 @@
     "@my-oa/auth": "file:../oa-auth",
     "@my-oa/flow": "file:../oa-flow",
     "@my-oa/form": "file:../oa-form",
+    "@my-oa/designer": "file:../oa-designer",
     "@my-oa/meeting": "file:../oa-meeting",
     "@my-oa/project": "file:../oa-project",
     "@my-oa/chat": "file:../oa-chat",

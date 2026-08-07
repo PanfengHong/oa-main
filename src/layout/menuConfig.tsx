@@ -7,6 +7,7 @@ import {
   AuditOutlined,
   ClockCircleOutlined,
   SettingOutlined,
+  FormOutlined,
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { useAuth } from '@my-oa/auth'
@@ -56,6 +57,14 @@ export const moduleMenuGroups: {
     icon: <ClusterOutlined />,
     items: [
       { key: '/project', label: '项目列表', path: '/project', permission: 'project:view' },
+    ],
+  },
+  {
+    key: 'designer',
+    label: '表单管理',
+    icon: <FormOutlined />,
+    items: [
+      { key: '/designer', label: '表单列表', path: '/designer', permission: 'designer:view' },
     ],
   },
   {

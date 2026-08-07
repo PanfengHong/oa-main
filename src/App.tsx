@@ -6,6 +6,7 @@ import { AttendancePage } from './pages/AttendancePage'
 import { ApprovalListPage } from './pages/ApprovalListPage'
 import { ApprovalDetailPage } from './pages/ApprovalDetailPage'
 import { businessModules } from './modules'
+import { FormListPage, FormDesignerPage } from '@my-oa/designer'
 import {
   AuthGuard,
   PermissionGuard,
@@ -26,6 +27,19 @@ export default function App() {
           <Route key={`pub-${route.path}`} path={route.path} element={route.element} />
         ),
       )}
+
+      {/* ═══════════════════════════════════════
+          表单设计器编辑页：独立 SPA 全屏布局（需登录，无 AppShell 侧边栏/顶部）
+          入口在主应用「表单管理」页面，点击编辑后跳转至此
+          ═══════════════════════════════════════ */}
+      <Route
+        path="/designer/:formId"
+        element={
+          <AuthGuard>
+            <FormDesignerPage />
+          </AuthGuard>
+        }
+      />
 
       {/* ═══════════════════════════════════════
           第二层：受保护区域（需要登录）
@@ -73,6 +87,14 @@ export default function App() {
           element={
             <PermissionGuard permission="attendance:view" fallbackPath="/403">
               <AttendancePage />
+            </PermissionGuard>
+          }
+        />
+        <Route
+          path="designer"
+          element={
+            <PermissionGuard permission="designer:view" fallbackPath="/403">
+              <FormListPage />
             </PermissionGuard>
           }
         />
