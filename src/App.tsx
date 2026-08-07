@@ -6,11 +6,32 @@ import { AttendancePage } from './pages/AttendancePage'
 import { ApprovalListPage } from './pages/ApprovalListPage'
 import { ApprovalDetailPage } from './pages/ApprovalDetailPage'
 import { businessModules } from './modules'
+import { ProtectedRoute, authPublicRoutes, authProtectedRoutes } from '@my-oa/auth'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<AppShell />}>
+      {authPublicRoutes.map((route) => {
+        if (route.index) {
+          return <Route key="auth-index" index element={route.element} />
+        }
+        return (
+          <Route
+            key={`auth-${route.path}`}
+            path={route.path}
+            element={route.element}
+          />
+        )
+      })}
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <AppShell />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="approval" element={<ApprovalListPage />} />
@@ -28,6 +49,18 @@ export default function App() {
             )}
           </Route>
         ))}
+        {authProtectedRoutes.map((route) => {
+          if (route.index) {
+            return <Route key="auth-protected-index" index element={route.element} />
+          }
+          return (
+            <Route
+              key={`auth-protected-${route.path}`}
+              path={route.path}
+              element={route.element}
+            />
+          )
+        })}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Route>
     </Routes>
