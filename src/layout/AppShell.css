@@ -1,11 +1,21 @@
 .oa-shell {
-  min-height: 100vh;
+  height: 100vh;
   background: #f5f6f8;
+  overflow: hidden;
+}
+
+.oa-shell__main {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .oa-shell__sider {
   border-right: 1px solid #eef0f3;
   background: #fff !important;
+  overflow: hidden;
+  height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
 .oa-shell__brand {
@@ -14,6 +24,14 @@
   align-items: center;
   gap: 10px;
   padding: 0 20px;
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.oa-shell__brand-text {
+  font-size: 15px;
+  color: #1f1f1f;
 }
 
 .oa-shell__logo {
@@ -27,6 +45,79 @@
   justify-content: center;
   font-weight: 700;
   font-size: 13px;
+  flex-shrink: 0;
+}
+
+.oa-shell__sider .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 0;
+}
+
+.oa-shell__sider .ant-menu {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.oa-shell__menu-wrap {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.oa-shell__menu-wrap .ant-menu {
+  border-right: none !important;
+  height: 100%;
+}
+
+.oa-shell__sider-footer {
+  flex-shrink: 0;
+  padding: 12px;
+  background: #fafafa;
+}
+
+.oa-shell__user-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.oa-shell__user-block:hover {
+  background: #f0f5ff;
+}
+
+.oa-shell__user-block:active {
+  background: #e6f0ff;
+}
+
+.oa-shell__user-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.oa-shell__user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f1f1f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.oa-shell__user-role {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .oa-shell__header {
@@ -35,7 +126,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 24px;
+  padding-inline: 16px 24px;
   height: 56px;
 }
 
@@ -46,7 +137,8 @@
 
 .oa-shell__content {
   margin: 20px 24px 32px;
-  min-height: calc(100vh - 96px);
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .oa-page {
@@ -84,7 +176,7 @@
 
 .oa-stat-card strong {
   font-size: 28px;
-  color: #1f1f1f;
+  color: #1f1f1;
   font-weight: 600;
 }
 

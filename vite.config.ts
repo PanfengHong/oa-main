@@ -8,6 +8,7 @@ export default defineConfig({
     dedupe: ['react', 'react-dom', 'react-router', 'react-router-dom'],
     alias: {
       '@': resolve(__dirname, 'src'),
+      '@my-oa/auth': resolve(__dirname, '../oa-auth/src/index.ts'),
       '@my-oa/form': resolve(__dirname, '../oa-form/src/index.ts'),
       '@my-oa/flow': resolve(__dirname, '../oa-flow/src/index.ts'),
       '@my-oa/meeting': resolve(__dirname, '../oa-meeting/src/index.ts'),
