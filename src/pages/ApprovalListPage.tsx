@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Drawer } from 'antd'
-import { ApprovalList, ApprovalDetail, mockApprovals } from '@my-oa/flow'
-import type { ApprovalItem } from '@my-oa/flow'
-import { FormRenderer, sampleLeaveFormSchema } from '@my-oa/form'
+import { ApprovalList, ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
+import type { ApprovalItem } from '@zdy-oa/flow'
+import { FormRenderer, sampleLeaveFormSchema } from '@zdy-oa/form'
 
 export function ApprovalListPage() {
   const [selected, setSelected] = useState<ApprovalItem | null>(null)

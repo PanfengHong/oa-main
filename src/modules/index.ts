@@ -1,8 +1,8 @@
-import { meetingModule } from '@my-oa/meeting'
-import { projectModule } from '@my-oa/project'
-import { taskModule } from '@my-oa/task'
-import { authModule } from '@my-oa/auth'
+import { meetingModule } from '@zdy-oa/meeting'
+import { projectModule } from '@zdy-oa/project'
+import { taskModule } from '@zdy-oa/task'
+import { authModule } from '@zdy-oa/auth'
 
 export const businessModules = [meetingModule, taskModule, projectModule, authModule]
 
-export type { OaModuleDefinition } from '@my-oa/meeting'
+export type { OaModuleDefinition } from '@zdy-oa/meeting'

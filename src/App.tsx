@@ -6,13 +6,13 @@ import { AttendancePage } from './pages/AttendancePage'
 import { ApprovalListPage } from './pages/ApprovalListPage'
 import { ApprovalDetailPage } from './pages/ApprovalDetailPage'
 import { businessModules } from './modules'
-import { FormListPage, FormDesignerPage } from '@my-oa/designer'
+import { FormListPage, FormDesignerPage } from '@zdy-oa/designer'
 import {
   AuthGuard,
   PermissionGuard,
   authPublicRoutes,
   authProtectedRoutes,
-} from '@my-oa/auth'
+} from '@zdy-oa/auth'
 
 export default function App() {
   return (

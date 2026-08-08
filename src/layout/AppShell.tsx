@@ -3,8 +3,8 @@ import { Layout, Menu, Typography, Avatar, Space, Dropdown, Button, Divider } fr
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useSideMenuItems, moduleMenuGroups, userMenuNavItems } from './menuConfig'
-import { useAuth } from '@my-oa/auth'
-import { ChatWidget } from '@my-oa/chat'
+import { useAuth } from '@zdy-oa/auth'
+import { ChatWidget } from '@zdy-oa/chat'
 import './AppShell.css'
 
 const { Header, Sider, Content } = Layout

@@ -10,7 +10,7 @@ import {
   FormOutlined,
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
-import { useAuth } from '@my-oa/auth'
+import { useAuth } from '@zdy-oa/auth'
 
 export interface NavMenuItem {
   key: string

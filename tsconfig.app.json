@@ -17,12 +17,12 @@
     "jsx": "react-jsx",
     "paths": {
       "@/*": ["./src/*"],
-      "@my-oa/form": ["../oa-form/src/index.ts"],
-      "@my-oa/flow": ["../oa-flow/src/index.ts"],
-      "@my-oa/designer": ["../oa-designer/src/index.ts"],
-      "@my-oa/meeting": ["../oa-meeting/src/index.ts"],
-      "@my-oa/task": ["../oa-task/src/index.ts"],
-      "@my-oa/project": ["../oa-project/src/index.ts"]
+      "@zdy-oa/form": ["../oa-form/src/index.ts"],
+      "@zdy-oa/flow": ["../oa-flow/src/index.ts"],
+      "@zdy-oa/designer": ["../oa-designer/src/index.ts"],
+      "@zdy-oa/meeting": ["../oa-meeting/src/index.ts"],
+      "@zdy-oa/task": ["../oa-task/src/index.ts"],
+      "@zdy-oa/project": ["../oa-project/src/index.ts"]
     },
 
     /* Linting */

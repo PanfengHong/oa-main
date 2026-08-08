@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from 'antd'
-import { ApprovalDetail, mockApprovals } from '@my-oa/flow'
-import { FormRenderer, sampleLeaveFormSchema } from '@my-oa/form'
+import { ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
+import { FormRenderer, sampleLeaveFormSchema } from '@zdy-oa/form'
 
 export function ApprovalDetailPage() {
   const { approvalId } = useParams()
