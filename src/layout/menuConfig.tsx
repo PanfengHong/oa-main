@@ -23,8 +23,17 @@ export interface NavMenuItem {
 export const coreMenuItems: NavMenuItem[] = [
   { key: '/dashboard', icon: <DashboardOutlined />, label: '工作台', path: '/dashboard', permission: 'dashboard:view' },
   { key: '/approval', icon: <AuditOutlined />, label: '审批中心', path: '/approval', permission: 'approval:view' },
-  { key: '/org', icon: <TeamOutlined />, label: '组织架构', path: '/org', permission: 'org:view' },
   { key: '/attendance', icon: <ClockCircleOutlined />, label: '考勤', path: '/attendance', permission: 'attendance:view' },
+]
+
+/**
+ * 显示在用户下拉菜单中的导航项（从侧边栏移出，仍受权限控制）。
+ * AppShell 会根据用户权限过滤后再渲染。
+ */
+export const userMenuNavItems: NavMenuItem[] = [
+  { key: '/org', icon: <TeamOutlined />, label: '组织架构', path: '/org', permission: 'org:view' },
+  { key: '/designer', icon: <FormOutlined />, label: '表单管理', path: '/designer', permission: 'designer:view' },
+  { key: '/auth/users', icon: <SettingOutlined />, label: '系统管理', path: '/auth/users', permission: 'user:manage' },
 ]
 
 export const moduleMenuGroups: {
@@ -57,22 +66,6 @@ export const moduleMenuGroups: {
     icon: <ClusterOutlined />,
     items: [
       { key: '/project', label: '项目列表', path: '/project', permission: 'project:view' },
-    ],
-  },
-  {
-    key: 'designer',
-    label: '表单管理',
-    icon: <FormOutlined />,
-    items: [
-      { key: '/designer', label: '表单列表', path: '/designer', permission: 'designer:view' },
-    ],
-  },
-  {
-    key: 'system',
-    label: '系统管理',
-    icon: <SettingOutlined />,
-    items: [
-      { key: '/auth/users', label: '用户管理', path: '/auth/users', permission: 'user:manage' },
     ],
   },
 ]

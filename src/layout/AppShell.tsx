@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Layout, Menu, Typography, Avatar, Space, Dropdown, Button, Divider } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { useSideMenuItems, moduleMenuGroups } from './menuConfig'
+import { useSideMenuItems, moduleMenuGroups, userMenuNavItems } from './menuConfig'
 import { useAuth } from '@my-oa/auth'
 import { ChatWidget } from '@my-oa/chat'
 import './AppShell.css'
@@ -24,8 +24,22 @@ export function AppShell() {
     navigate('/login', { replace: true })
   }
 
+  // 用户下拉菜单中的导航项（如组织架构），按权限过滤后渲染
+  const permissions = user?.permissions ?? []
+  const hasPermission = (perm?: string) => !perm || permissions.includes(perm)
+  const navItems = userMenuNavItems
+    .filter((item) => hasPermission(item.permission))
+    .map((item) => ({
+      key: item.key,
+      icon: item.icon,
+      label: item.label,
+      onClick: () => navigate(item.path!),
+    }))
+
   const userMenuItems = {
     items: [
+      ...navItems,
+      ...(navItems.length > 0 ? [{ type: 'divider' as const }] : []),
       {
         key: 'profile',
         icon: <UserOutlined />,
