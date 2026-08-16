@@ -13,6 +13,7 @@ export function ApprovalListPage() {
       <Drawer
         title="审批详情"
         placement="right"
+        closable={{ placement: 'end' }}
         width="min(820px, 90vw)"
         open={!!selected}
         onClose={() => setSelected(null)}

@@ -3,13 +3,13 @@ import { Layout, Menu, Typography, Avatar, Space, Dropdown, Button, Divider } fr
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useSideMenuItems, moduleMenuGroups, userMenuNavItems } from './menuConfig'
-import { useAuth } from '@zdy-oa/auth'
+import { useAuth, hasPermission } from '@zdy-oa/auth'
 import { ChatWidget } from '@zdy-oa/chat'
 import './AppShell.css'
 
 const { Header, Sider, Content } = Layout
 
-export function AppShell() {
+export function AppShell() {  
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useAuth()
@@ -26,9 +26,8 @@ export function AppShell() {
 
   // 用户下拉菜单中的导航项（如组织架构），按权限过滤后渲染
   const permissions = user?.permissions ?? []
-  const hasPermission = (perm?: string) => !perm || permissions.includes(perm)
   const navItems = userMenuNavItems
-    .filter((item) => hasPermission(item.permission))
+    .filter((item) => hasPermission(permissions, item.permission))
     .map((item) => ({
       key: item.key,
       icon: item.icon,
@@ -113,10 +112,10 @@ export function AppShell() {
               {!collapsed && (
                 <div className="oa-shell__user-info">
                   <div className="oa-shell__user-name">
-                    {user?.displayName ?? '用户'}
+                    {user?.username ?? '用户'}
                   </div>
                   <div className="oa-shell__user-role">
-                    {user?.roles?.[0] ?? '未分配角色'}
+                    {user?.role?.name ?? '未分配角色'}
                   </div>
                 </div>
               )}

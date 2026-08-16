@@ -10,7 +10,7 @@ import {
   FormOutlined,
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
-import { useAuth } from '@zdy-oa/auth'
+import { useAuth, hasPermission } from '@zdy-oa/auth'
 
 export interface NavMenuItem {
   key: string
@@ -22,7 +22,7 @@ export interface NavMenuItem {
 
 export const coreMenuItems: NavMenuItem[] = [
   { key: '/dashboard', icon: <DashboardOutlined />, label: '工作台', path: '/dashboard', permission: 'dashboard:view' },
-  { key: '/approval', icon: <AuditOutlined />, label: '审批中心', path: '/approval', permission: 'approval:view' },
+  { key: '/approval', icon: <AuditOutlined />, label: '审批', path: '/approval', permission: 'approval:view' },
   { key: '/attendance', icon: <ClockCircleOutlined />, label: '考勤', path: '/attendance', permission: 'attendance:view' },
 ]
 
@@ -74,19 +74,14 @@ export function useSideMenuItems(): MenuProps['items'] {
   const { user } = useAuth()
   const permissions = user?.permissions ?? []
 
-  const hasPermission = (perm?: string) => {
-    if (!perm) return true
-    return permissions.includes(perm)
-  }
-
-  const filteredCore = coreMenuItems.filter((item) => hasPermission(item.permission))
+  const filteredCore = coreMenuItems.filter((item) => hasPermission(permissions, item.permission))
 
   const filteredGroups = moduleMenuGroups
     .map((group) => ({
       key: group.key,
       icon: group.icon,
       label: group.label,
-      children: group.items.filter((item) => hasPermission(item.permission)).map(({ key, label }) => ({ key, label })),
+      children: group.items.filter((item) => hasPermission(permissions, item.permission)).map(({ key, label }) => ({ key, label })),
     }))
     .filter((group) => group.children.length > 0)
 

@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+console.log('vite config loaded')
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -19,7 +20,20 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173,
-    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            console.log('🚀 Proxy request intercepted:', req.url);
+          });
+          proxy.on('error', (err, req, res) => {
+            console.log('❌ Proxy error:', err.message);
+          });
+        },
+      },
+    },
   },
 })
