@@ -6,7 +6,8 @@ import { AttendancePage } from './pages/AttendancePage'
 import { ApprovalListPage } from './pages/ApprovalListPage'
 import { ApprovalDetailPage } from './pages/ApprovalDetailPage'
 import { businessModules } from './modules'
-import { FormListPage, FormDesignerPage } from '@zdy-oa/designer'
+import { DesignerPage } from '@zdy-oa/designer'
+import { FormListPage } from '@zdy-oa/form'
 import {
   AuthGuard,
   PermissionGuard,
@@ -36,7 +37,7 @@ export default function App() {
         path="/designer/:formId"
         element={
           <AuthGuard>
-            <FormDesignerPage />
+            <DesignerPage />
           </AuthGuard>
         }
       />
@@ -91,9 +92,9 @@ export default function App() {
           }
         />
         <Route
-          path="designer"
+          path="form"
           element={
-            <PermissionGuard permission="designer:view" fallbackPath="/403">
+            <PermissionGuard permission="form:view" fallbackPath="/403">
               <FormListPage />
             </PermissionGuard>
           }

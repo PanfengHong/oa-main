@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, 'src'),
       '@zdy-oa/auth': resolve(__dirname, '../oa-auth/src/index.ts'),
+      '@zdy-oa/utils': resolve(__dirname, '../oa-utils/src/index.ts'),
       '@zdy-oa/form': resolve(__dirname, '../oa-form/src/index.ts'),
       '@zdy-oa/flow': resolve(__dirname, '../oa-flow/src/index.ts'),
       '@zdy-oa/designer': resolve(__dirname, '../oa-designer/src/index.ts'),

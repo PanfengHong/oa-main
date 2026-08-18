@@ -32,7 +32,7 @@ export const coreMenuItems: NavMenuItem[] = [
  */
 export const userMenuNavItems: NavMenuItem[] = [
   { key: '/org', icon: <TeamOutlined />, label: '组织架构', path: '/org', permission: 'org:view' },
-  { key: '/designer', icon: <FormOutlined />, label: '表单管理', path: '/designer', permission: 'designer:view' },
+  { key: '/form', icon: <FormOutlined />, label: '表单管理', path: '/form', permission: 'form:view' },
   { key: '/auth/users', icon: <SettingOutlined />, label: '系统管理', path: '/auth/users', permission: 'user:manage' },
 ]
 
