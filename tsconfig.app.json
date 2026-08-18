@@ -22,7 +22,8 @@
       "@zdy-oa/designer": ["../oa-designer/src/index.ts"],
       "@zdy-oa/meeting": ["../oa-meeting/src/index.ts"],
       "@zdy-oa/task": ["../oa-task/src/index.ts"],
-      "@zdy-oa/project": ["../oa-project/src/index.ts"]
+      "@zdy-oa/project": ["../oa-project/src/index.ts"],
+      "@zdy-oa/utils": ["../oa-utils/src/index.ts"]
     },
 
     /* Linting */

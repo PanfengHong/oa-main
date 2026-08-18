@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from 'antd'
 import { ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
@@ -22,6 +22,10 @@ export function ApprovalDetailPage() {
     )
   }
 
+  useEffect(() => {
+    console.log("item", item)
+  }, [item])
+
   return (
     <div className="oa-page">
       <Button type="link" onClick={() => navigate('/approval')} style={{ padding: 0, width: 'fit-content' }}>
@@ -30,7 +34,10 @@ export function ApprovalDetailPage() {
       <ApprovalDetail
         item={item}
         formSlot={
-          <FormRenderer schema={sampleLeaveFormSchema} readOnly initialValues={{ type: 'annual', days: 3 }} />
+          <FormRenderer
+            schema={sampleLeaveFormSchema}
+            initialValues={{ type: 'annual', days: 3 }}
+          />
         }
       />
     </div>

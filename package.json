@@ -20,6 +20,7 @@
     "@zdy-oa/project": "file:../oa-project",
     "@zdy-oa/chat": "file:../oa-chat",
     "@zdy-oa/task": "file:../oa-task",
+    "@zdy-oa/utils": "file:../oa-utils",
     "antd": "^5.26.0",
     "dayjs": "^1.11.13",
     "react": "^19.2.8",

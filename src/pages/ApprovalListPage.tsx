@@ -1,11 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Drawer } from 'antd'
 import { ApprovalList, ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
 import type { ApprovalItem } from '@zdy-oa/flow'
-import { FormRenderer, sampleLeaveFormSchema } from '@zdy-oa/form'
+import { FormRenderer, sampleLeaveFormSchema, type FormSchema } from '@zdy-oa/form'
+import { getFormDetail } from '@/api'
 
 export function ApprovalListPage() {
   const [selected, setSelected] = useState<ApprovalItem | null>(null)
+  const [formSchema, setFormSchema] = useState<FormSchema>(null)
+
+  useEffect(() => {
+    if (!selected) {
+      return
+    }
+    getFormDetail(selected.formSchemaId).then(res => {
+      console.log("form detail", res)
+      if(res.code === 200) {
+        setFormSchema(res.data)
+      }
+    })
+    console.log("selected", selected)
+  }, [selected])
 
   return (
     <>
@@ -19,15 +34,13 @@ export function ApprovalListPage() {
         onClose={() => setSelected(null)}
         destroyOnHidden
       >
-        {selected && (
+        {selected && formSchema && (
           <ApprovalDetail
             key={selected.id}
             item={selected}
             formSlot={
               <FormRenderer
-                schema={sampleLeaveFormSchema}
-                readOnly
-                initialValues={{ type: 'annual', days: 3 }}
+                schema={formSchema}
               />
             }
           />
