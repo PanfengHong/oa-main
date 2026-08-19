@@ -36,7 +36,7 @@ jobs:
       OWNER: PanfengHong
     steps:
       - name: Checkout oa-main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-main
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -69,9 +69,9 @@ jobs:
           done
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: '22'
           cache: npm
           cache-dependency-path: |
             oa-main/package-lock.json
@@ -106,10 +106,10 @@ jobs:
           npm run build 2>&1 | tail -n 50
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: oa-main/dist
 
