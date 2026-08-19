@@ -3,11 +3,20 @@ import { Drawer } from 'antd'
 import { ApprovalList, ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
 import type { ApprovalItem } from '@zdy-oa/flow'
 import { FormRenderer, sampleLeaveFormSchema, type FormSchema } from '@zdy-oa/form'
-import { getFormDetail } from '@/api'
+import { getFormDetail, getMyApprovals } from '@/api'
 
 export function ApprovalListPage() {
   const [selected, setSelected] = useState<ApprovalItem | null>(null)
   const [formSchema, setFormSchema] = useState<FormSchema>(null)
+
+  useEffect(() => {
+    getMyApprovals().then(res => {
+      console.log("my approvals", res)
+      if(res.code === 200) {
+        // setMyApprovals(res.data)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     if (!selected) {

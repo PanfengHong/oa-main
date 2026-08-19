@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import { getAttendanceRecords } from '../api'
 import { Calendar, Tag } from 'antd'
 import dayjs from 'dayjs'
 
@@ -8,6 +10,19 @@ const records = [
 ]
 
 export function AttendancePage() {
+  const [attendanceRecords, setAttendanceRecords] = useState([])
+
+
+  useEffect(() => {
+    getAttendanceRecords().then(res => {
+      console.log("attendance", res)
+      if(res.code === 200) {
+        setAttendanceRecords(res.data)
+      }
+    })
+  }, [])
+
+
   return (
     <div className="oa-page">
       <h1 className="oa-page__title">考勤</h1>

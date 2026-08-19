@@ -6,3 +6,17 @@ export const getFormDetail = (id: string) => {
         method: 'GET'
     });
 };
+
+export const getMyApprovals = () => {
+    return request.request({
+        url: '/api/workflow/my',
+        method: 'GET'
+    });
+}
+
+export const getAttendanceRecords = () => {
+    return request.request({
+        url: '/api/attend/all',
+        method: 'GET'
+    });
+}
