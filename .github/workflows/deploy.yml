@@ -5,7 +5,6 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
-# 允许 Pages 部署
 permissions:
   contents: read
   pages: write
@@ -15,59 +14,64 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# ============================================================
+# 前置条件（必须满足此 3 项，否则 Actions 会 404）
+# 1. 本仓库 PanfengHong/oa-main 必须启用 Pages（Settings → Pages → Source=GitHub Actions）
+# 2. 下面列出的每一个 sibling 仓库，都必须先 push 到 GitHub 上 PanfengHong 账号下
+#    PanfengHong/oa-utils、PanfengHong/oa-auth、PanfengHong/oa-form、
+#    PanfengHong/oa-designer、PanfengHong/oa-flow、PanfengHong/oa-meeting、
+#    PanfengHong/oa-task、PanfengHong/oa-project、PanfengHong/oa-chat
+#    —— 如果某个仓库是 PRIVATE，必须在 workflow 里传 GITHUB_TOKEN 或 PAT；
+#       最简单做法：Settings → Actions → General → "Workflow permissions" 选 "Read and write"
+# 3. oa-auth 当前本地还没 git init，需要先：
+#      cd oa-auth && git init && git add . && git commit -m init && \
+#      git remote add origin https://github.com/PanfengHong/oa-auth.git && git push -u origin main
+# ============================================================
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # 统一 GitHub 用户名 / owner
+      OWNER: PanfengHong
     steps:
       - name: Checkout oa-main
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
+          repository: PanfengHong/oa-main
+          token: ${{ secrets.GITHUB_TOKEN }}
           path: oa-main
+          fetch-depth: 1
 
-      # 各业务子包是独立仓库，需分别拉取到与 oa-main 同级目录，
-      # 这样 oa-main 的 build:deps（--prefix ../oa-xxx）与 vite alias 才能解析到。
-      - name: Checkout sibling packages
-        uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-utils
-          path: oa-utils
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-auth
-          path: oa-auth
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-form
-          path: oa-form
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-designer
-          path: oa-designer
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-flow
-          path: oa-flow
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-meeting
-          path: oa-meeting
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-task
-          path: oa-task
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-project
-          path: oa-project
-      - uses: actions/checkout@v5
-        with:
-          repository: PanfengHong/oa-chat
-          path: oa-chat
+      # 逐个 checkout sibling 仓库。用 bash 先探测仓库是否存在，不存在则给出
+      # 明确的错误提示并 FAIL FAST，而不是让 actions/checkout 报 404 误导排查。
+      - name: Checkout sibling packages (oa-utils, oa-form, oa-designer, oa-flow, oa-meeting, oa-task, oa-project, oa-chat, oa-auth)
+        run: |
+          set -euo pipefail
+          TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          SIBLINGS=(oa-utils oa-auth oa-form oa-designer oa-flow oa-meeting oa-task oa-project oa-chat)
+          for REPO in "${SIBLINGS[@]}"; do
+            URL="https://api.github.com/repos/${OWNER}/${REPO}"
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${TOKEN}" "${URL}" || true)
+            if [[ "$CODE" != "200" ]]; then
+              echo "::error::仓库 ${OWNER}/${REPO} 在 GitHub 上不存在（HTTP ${CODE}）。请先在本地执行："
+              echo "  cd ${REPO}"
+              echo "  git init && git add -A && git commit -m init"
+              echo "  git remote add origin https://github.com/${OWNER}/${REPO}.git"
+              echo "  git push -u origin main"
+              echo " （私有仓库还需在 Settings → Actions → Workflow permissions 选择 Read and write）"
+              exit 1
+            fi
+            echo "✅ ${OWNER}/${REPO} 存在，checkout…"
+            git clone --depth 1 \
+              "https://x-access-token:${TOKEN}@github.com/${OWNER}/${REPO}.git" \
+              "${REPO}"
+          done
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 20
           cache: npm
           cache-dependency-path: |
             oa-main/package-lock.json
@@ -81,26 +85,31 @@ jobs:
             oa-project/package-lock.json
             oa-chat/package-lock.json
 
-      - name: Install & build sibling packages
+      - name: Install deps for sibling packages
+        run: |
+          set -euo pipefail
+          for d in oa-utils oa-auth oa-form oa-designer oa-flow oa-meeting oa-task oa-project oa-chat; do
+            echo "==> npm install @ $d"
+            (cd "$d" && npm install --no-audit --no-fund)
+          done
+
+      - name: Install deps & build (oa-main)
         working-directory: oa-main
         env:
-          # 部署到 GitHub Pages 时强制使用模拟数据
+          # GitHub Pages 部署时强制走模拟数据（无后端）
           VITE_USE_MOCK: 'true'
-          # 仓库名为 oa-main，Pages 子路径为 /oa-main/
+          # 仓库名 oa-main → Pages 子路径 /oa-main/，BrowserRouter basename 同步
           VITE_BASE_PATH: /oa-main/
         run: |
-          npm install
-          # build:deps 会构建 ../oa-auth 等所有子包（每个子包需先 install）
-          for d in oa-utils oa-auth oa-form oa-designer oa-flow oa-meeting oa-task oa-project oa-chat; do
-            (cd "../$d" && npm install)
-          done
-          npm run build
+          set -euo pipefail
+          npm install --no-audit --no-fund
+          npm run build 2>&1 | tail -n 50
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v3
         with:
           path: oa-main/dist
 
@@ -113,4 +122,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
