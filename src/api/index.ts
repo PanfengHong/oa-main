@@ -1,5 +1,12 @@
 import { request } from '@zdy-oa/utils'
 
+export const getDashboardOverview = () => {
+    return request.request({
+        url: '/api/dashboard/overview',
+        method: 'GET'
+    });
+}
+
 export const getFormDetail = (id: string) => {
     return request.request({
         url: `/api/form/detail/${id}`,
