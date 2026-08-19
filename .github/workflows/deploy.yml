@@ -20,54 +20,54 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout oa-main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: oa-main
 
       # 各业务子包是独立仓库，需分别拉取到与 oa-main 同级目录，
       # 这样 oa-main 的 build:deps（--prefix ../oa-xxx）与 vite alias 才能解析到。
       - name: Checkout sibling packages
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-utils
           path: oa-utils
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-auth
           path: oa-auth
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-form
           path: oa-form
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-designer
           path: oa-designer
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-flow
           path: oa-flow
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-meeting
           path: oa-meeting
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-task
           path: oa-task
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-project
           path: oa-project
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: PanfengHong/oa-chat
           path: oa-chat
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: '22'
           cache: npm
           cache-dependency-path: |
             oa-main/package-lock.json
@@ -97,10 +97,10 @@ jobs:
           npm run build
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: oa-main/dist
 
