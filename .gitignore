@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# 本地环境变量覆盖（不提交，例如指向本地后端）
+.env.local
+.env.*.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
