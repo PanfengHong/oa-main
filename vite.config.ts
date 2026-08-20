@@ -31,14 +31,6 @@ export default defineConfig(({ mode }) => {
           target: 'http://localhost:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
-          configure: (proxy, options) => {
-            proxy.on('proxyReq', (proxyReq, req, res) => {
-              console.log('🚀 Proxy request intercepted:', req.url);
-            });
-            proxy.on('error', (err, req, res) => {
-              console.log('❌ Proxy error:', err.message);
-            });
-          },
         },
       },
     },

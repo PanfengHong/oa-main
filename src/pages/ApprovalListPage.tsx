@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { Drawer } from 'antd'
 import { ApprovalList, ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
 import type { ApprovalItem } from '@zdy-oa/flow'
-import { FormRenderer, sampleLeaveFormSchema, type FormSchema } from '@zdy-oa/form'
+import { FormRenderer, type FormSchema } from '@zdy-oa/form'
 import { getFormDetail, getMyApprovals } from '@/api'
 
 export function ApprovalListPage() {
   const [selected, setSelected] = useState<ApprovalItem | null>(null)
-  const [formSchema, setFormSchema] = useState<FormSchema>(null)
+  const [formSchema, setFormSchema] = useState<FormSchema | null>(null)
 
   useEffect(() => {
     getMyApprovals().then(res => {

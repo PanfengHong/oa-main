@@ -4,13 +4,21 @@ import { Calendar, Tag } from 'antd'
 import dayjs from 'dayjs'
 
 const records = [
-  { date: '2026-08-01', status: '正常', checkIn: '09:02', checkOut: '18:15' },
-  { date: '2026-07-31', status: '正常', checkIn: '08:55', checkOut: '18:30' },
-  { date: '2026-07-30', status: '迟到', checkIn: '09:18', checkOut: '18:05' },
+  { id: '1', date: '2026-08-01', status: '正常', checkIn: '09:02', checkOut: '18:15' },
+  { id: '2', date: '2026-07-31', status: '正常', checkIn: '08:55', checkOut: '18:30' },
+  { id: '3', date: '2026-07-30', status: '迟到', checkIn: '09:18', checkOut: '18:05' },
 ]
 
+interface AttendanceRecordType {
+  id: string;
+  date: string;
+  status: string;
+  checkIn: string;
+  checkOut: string;
+}
+
 export function AttendancePage() {
-  const [attendanceRecords, setAttendanceRecords] = useState([])
+  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecordType[]>(records)
 
 
   useEffect(() => {
@@ -31,7 +39,7 @@ export function AttendancePage() {
         <div style={{ background: '#fff', border: '1px solid #eef0f3', borderRadius: 12, padding: 16 }}>
           <h3 style={{ marginTop: 0 }}>近期打卡</h3>
           <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-            {records.map((r) => (
+            {attendanceRecords.map((r: AttendanceRecordType) => (
               <li
                 key={r.date}
                 style={{

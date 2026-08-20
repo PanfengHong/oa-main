@@ -74,14 +74,14 @@ export function useSideMenuItems(): MenuProps['items'] {
   const { user } = useAuth()
   const permissions = user?.permissions ?? []
 
-  const filteredCore = coreMenuItems.filter((item) => hasPermission(permissions, item.permission))
+  const filteredCore = coreMenuItems.filter((item: NavMenuItem) => hasPermission(permissions, item.permission || ''))
 
   const filteredGroups = moduleMenuGroups
     .map((group) => ({
       key: group.key,
       icon: group.icon,
       label: group.label,
-      children: group.items.filter((item) => hasPermission(permissions, item.permission)).map(({ key, label }) => ({ key, label })),
+      children: group.items.filter((item: NavMenuItem) => hasPermission(permissions, item.permission || '')).map(({ key, label }) => ({ key, label })),
     }))
     .filter((group) => group.children.length > 0)
 

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Layout, Menu, Typography, Avatar, Space, Dropdown, Button, Divider } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { useSideMenuItems, moduleMenuGroups, userMenuNavItems } from './menuConfig'
+import { useSideMenuItems, moduleMenuGroups, userMenuNavItems, type NavMenuItem } from './menuConfig'
 import { useAuth, hasPermission } from '@zdy-oa/auth'
 import { ChatWidget } from '@zdy-oa/chat'
 import './AppShell.css'
@@ -27,7 +27,7 @@ export function AppShell() {
   // 用户下拉菜单中的导航项（如组织架构），按权限过滤后渲染
   const permissions = user?.permissions ?? []
   const navItems = userMenuNavItems
-    .filter((item) => hasPermission(permissions, item.permission))
+    .filter((item: NavMenuItem) => hasPermission(permissions, item.permission || ''))
     .map((item) => ({
       key: item.key,
       icon: item.icon,
