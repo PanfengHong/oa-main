@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:deps && tsc -b && vite build",
-    "build:deps": "npm run build --prefix ../oa-auth && npm run build --prefix ../oa-form && npm run build --prefix ../oa-flow && npm run build --prefix ../oa-meeting && npm run build --prefix ../oa-task && npm run build --prefix ../oa-project && npm run build --prefix ../oa-chat && npm run build --prefix ../oa-designer",
+    "build:deps": "npm run build --prefix ../oa-utils && npm run build --prefix ../oa-auth && npm run build --prefix ../oa-form && npm run build --prefix ../oa-flow && npm run build --prefix ../oa-meeting && npm run build --prefix ../oa-task && npm run build --prefix ../oa-project && npm run build --prefix ../oa-chat && npm run build --prefix ../oa-designer",
     "lint": "oxlint",
     "preview": "vite preview"
   },
