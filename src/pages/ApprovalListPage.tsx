@@ -4,13 +4,14 @@ import { ApprovalList, ApprovalDetail, mockApprovals } from '@zdy-oa/flow'
 import type { ApprovalItem } from '@zdy-oa/flow'
 import { FormRenderer, type FormSchema } from '@zdy-oa/form'
 import { getFormDetail, getMyApprovals } from '@/api'
+import type { ResponseData } from '@zdy-oa/utils'
 
 export function ApprovalListPage() {
   const [selected, setSelected] = useState<ApprovalItem | null>(null)
   const [formSchema, setFormSchema] = useState<FormSchema | null>(null)
 
   useEffect(() => {
-    getMyApprovals().then(res => {
+    getMyApprovals().then((res: ResponseData) => {
       console.log("my approvals", res)
       if(res.code === 200) {
         // setMyApprovals(res.data)
@@ -22,7 +23,7 @@ export function ApprovalListPage() {
     if (!selected) {
       return
     }
-    getFormDetail(selected.formSchemaId).then(res => {
+    getFormDetail(selected.formSchemaId).then((res: ResponseData) => {
       console.log("form detail", res)
       if(res.code === 200) {
         setFormSchema(res.data)

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getAttendanceRecords } from '../api'
 import { Calendar, Tag } from 'antd'
 import dayjs from 'dayjs'
+import type { ResponseData } from '@zdy-oa/utils'
 
 const records = [
   { id: '1', date: '2026-08-01', status: '正常', checkIn: '09:02', checkOut: '18:15' },
@@ -22,7 +23,7 @@ export function AttendancePage() {
 
 
   useEffect(() => {
-    getAttendanceRecords().then(res => {
+    getAttendanceRecords().then((res: ResponseData) => {
       console.log("attendance", res)
       if(res.code === 200) {
         setAttendanceRecords(res.data)

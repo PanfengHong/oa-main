@@ -2,6 +2,7 @@ import { Card, List, Tag } from 'antd'
 import { useEffect, useState } from 'react'
 import { getDashboardOverview } from '../api'
 import { message } from 'antd'
+import type { ResponseData } from '@zdy-oa/utils'
 
 const todos = [
   { title: '审批：张三年假申请', tag: '待办' },
@@ -20,14 +21,14 @@ export function DashboardPage() {
 
   useEffect(() => {
     getDashboardOverview()
-      .then((res) => {
+      .then((res: ResponseData) => {
         if (res.code === 200) {
           setOverview(res.data || {});
         } else {
           message.error(res.message || '加载工作台统计失败');
         }
       })
-      .catch((err) => {
+      .catch((err: ResponseData) => {
         console.error('getDashboardOverview error:', err?.code, err?.message, err);
         message.error(err?.message || '加载工作台统计失败');
       });
